@@ -6,7 +6,9 @@
 <head>
 	<meta charset="utf-8">
 	<title><%= _.capitalize(name) %></title>
-	<link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css/">
+	<link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/<%= name.toLowerCase() %>.css">
 </head>
 <body>
 	<div class="container">
@@ -16,5 +18,10 @@
 	</div>
 	<script src="components/jquery/jquery.min.js"></script>
 	<script src="js/<%= name.toLowerCase() %>.js"></script>
+	<script>
+		(function(global,$){
+
+		})(window,jQuery);
+	</script>
 </body>
 </html>

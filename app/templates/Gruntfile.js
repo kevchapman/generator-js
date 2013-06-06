@@ -18,8 +18,8 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: 'demo',
-        dist: 'dist'
+        app: 'dev',
+        dist: 'build'
     };
 
     grunt.initConfig({
@@ -137,9 +137,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%%= yeoman.app %>/scripts',
+                    cwd: '<%%= yeoman.app %>/js',
                     src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
+                    dest: '.tmp/js',
                     ext: '.js'
                 }]
             },
@@ -156,12 +156,12 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: '<%%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
+                cssDir: '<%%= yeoman.app %>/styles',
                 generatedImagesDir: '.tmp/images/generated',
                 imagesDir: '<%%= yeoman.app %>/images',
                 javascriptsDir: '<%%= yeoman.app %>/scripts',
                 fontsDir: '<%%= yeoman.app %>/styles/fonts',
-                importPath: '<%%= yeoman.app %>/bower_components',
+                importPath: '<%%= yeoman.app %>/components',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
                 relativeAssets: false
@@ -183,7 +183,7 @@ module.exports = function (grunt) {
                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
                 options: {
                     // `name` and `out` is set by grunt-usemin
-                    baseUrl: yeomanConfig.app + '/scripts',
+                    baseUrl: yeomanConfig.app + '/js',
                     optimize: 'none',
                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
                     // https://github.com/yeoman/grunt-usemin/issues/30
@@ -207,7 +207,7 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%%= yeoman.dist %>/scripts/{,*/}*.js',
+                        '<%%= yeoman.dist %>/js/{,*/}*.js',
                         '<%%= yeoman.dist %>/styles/{,*/}*.css',
                         '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         '<%%= yeoman.dist %>/styles/fonts/*'
@@ -331,7 +331,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('server', function (target) {
-        if (target === 'dist') {
+        if (target === 'build') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
         }
 
@@ -365,9 +365,9 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('default', [
-        'jshint',
-        'test',
-        'build'
-    ]);
+    // grunt.registerTask('default', [
+    //     'jshint',
+    //     'test',
+    //     'build'
+    // ]);
 };

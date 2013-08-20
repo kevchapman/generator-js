@@ -18,23 +18,19 @@ module.exports = function (grunt) {
 
     // configurable paths
     var yeomanConfig = {
-        app: 'dev',
-        dist: 'build'
+        name: '<%= name %>',
+        app: 'demo',
+        dist: 'src'
     };
 
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
             options: {
-                nospawn: true
-            },
-            coffee: {
-                files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
+                // Check these props, added as a fix for livereload not running on compiled scss
+                // nospawn: false,
+                // interrupt: false,
+                // debounceDelay: 250
             },
             compass: {
                 files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -65,16 +61,6 @@ module.exports = function (grunt) {
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.app)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test')
                         ];
                     }
                 }
@@ -117,41 +103,6 @@ module.exports = function (grunt) {
                 '!<%%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
-        },<% if (testFramework === 'mocha') { %>
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://localhost:<%%= connect.options.port %>/index.html']
-                }
-            }
-        },<% } else if (testFramework === 'jasmine') { %>
-        jasmine: {
-            all: {
-                options: {
-                    specs: 'test/spec/{,*/}*.js'
-                }
-            }
-        },<% } %>
-        coffee: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%%= yeoman.app %>/js',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/js',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
-            }
         },
         compass: {
             options: {
@@ -161,7 +112,7 @@ module.exports = function (grunt) {
                 imagesDir: '<%%= yeoman.app %>/images',
                 javascriptsDir: '<%%= yeoman.app %>/scripts',
                 fontsDir: '<%%= yeoman.app %>/styles/fonts',
-                importPath: '<%%= yeoman.app %>/components',
+                importPath: '<%%= yeoman.app %>/bower_components',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
                 relativeAssets: false
@@ -281,7 +232,7 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
-            dist: {
+            original: {
                 files: [{
                     expand: true,
                     dot: true,
@@ -301,6 +252,10 @@ module.exports = function (grunt) {
                         'generated/*'
                     ]
                 }]
+            },
+            dist:{
+                src:'<%%= yeoman.app %>/js/<%%= yeoman.name %>.js',
+                dest: '<%%= yeoman.dist %>/<%%= yeoman.name %>.js'
             }
         },
         concurrent: {
@@ -337,7 +292,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'concurrent:server',
+            // 'concurrent:server',
             'connect:livereload',
             'open',
             'watch'
@@ -346,7 +301,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        'concurrent:test',
+        //'concurrent:test',
         'connect:test',<% if (testFramework === 'mocha') { %>
         'mocha'<% } else if (testFramework === 'jasmine') { %>
         'jasmine'<% } %>
@@ -354,15 +309,15 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'useminPrepare',
-        'concurrent:dist',<% if (includeRequireJS) { %>
-        'requirejs',<% } %>
-        'cssmin',
-        'concat',
-        'uglify',
-        'copy',
-        'rev',
-        'usemin'
+        // 'useminPrepare',
+        // 'concurrent:dist',<% if (includeRequireJS) { %>
+        // 'requirejs',<% } %>
+        // 'cssmin',
+        // 'concat',
+        'uglify:dist',
+        'copy:dist'
+        // 'rev',
+        // 'usemin'
     ]);
 
     // grunt.registerTask('default', [

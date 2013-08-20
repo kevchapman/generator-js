@@ -54,18 +54,20 @@ JsGenerator.prototype.askFor = function askFor() {
 };
 
 JsGenerator.prototype.app = function app() {
-  this.mkdir('dev');
-  this.mkdir('dev/styles');
-  this.mkdir('dev/js');
+  this.mkdir('demo');
+  this.mkdir('demo/styles');
+  this.mkdir('demo/js');
+  this.mkdir('src');
 
-  this.template('index.html','dev/index.html');
-  this.template('template.js','dev/js/'+this.name.toLowerCase()+'.js');
-  this.template('styles.scss','dev/styles/'+this.name.toLowerCase()+'.scss');
-  this.template('styles.scss','dev/styles/main.scss');
+  this.template('index.html','demo/index.html');
+  this.template('template.js','demo/js/'+this.name.toLowerCase()+'.js');
+  this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.scss');
+  this.template('styles.scss','demo/styles/main.scss');
 
   //this.copy('template.js', this.name+'.js');
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
+  this.template('gitignore', '.gitignore');
   this.template('Gruntfile.js', 'Gruntfile.js');
 };
 

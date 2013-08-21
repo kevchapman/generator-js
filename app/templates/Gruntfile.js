@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                 // Check these props, added as a fix for livereload not running on compiled scss
                 // nospawn: false,
                 // interrupt: false,
-                // debounceDelay: 250
+                debounceDelay: 250
             },
             compass: {
                 files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],

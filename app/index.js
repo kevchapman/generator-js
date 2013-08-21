@@ -8,7 +8,7 @@ var JsGenerator = module.exports = function JsGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+	this.installDependencies({ skipInstall: options['skip-install'] });
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -37,38 +37,40 @@ JsGenerator.prototype.askFor = function askFor() {
   console.log(welcome);
 
   var prompts = [{
-    name: 'name',
-    message: 'Whats the name of this project'
+	name: 'name',
+	message: 'Whats the name of this project'
   }];
 
   this.prompt(prompts, function (err, props) {
-    if (err) {
-      return this.emit('error', err);
-    }
+	if (err) {
+	  return this.emit('error', err);
+	}
 
-    this.name = props.name;
-    //this.jsFile = this.readFileAsString(path.join(this.sourceRoot(), 'template.js'));
+	this.name = props.name;
+	//this.jsFile = this.readFileAsString(path.join(this.sourceRoot(), 'template.js'));
 
-    cb();
+	cb();
   }.bind(this));
 };
 
 JsGenerator.prototype.app = function app() {
-  this.mkdir('demo');
-  this.mkdir('demo/styles');
-  this.mkdir('demo/js');
-  this.mkdir('src');
+	this.mkdir('demo');
+	this.mkdir('demo/styles');
+	this.mkdir('demo/js');
+	this.mkdir('src');
 
-  this.template('index.html','demo/index.html');
-  this.template('template.js','demo/js/'+this.name.toLowerCase()+'.js');
-  this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.scss');
-  this.template('styles.scss','demo/styles/main.scss');
+	this.template('index.html','demo/index.html');
+	this.template('template.js','demo/js/'+this.name.toLowerCase()+'.js');
+	this.template('styles.scss','demo/styles/'+ this.name.toLowerCase()+'.scss');
+	this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.scss');
+	this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.css');
+	this.template('styles.scss','demo/styles/main.css');
 
-  //this.copy('template.js', this.name+'.js');
-  this.copy('_package.json', 'package.json');
-  this.copy('_bower.json', 'bower.json');
-  this.template('gitignore', '.gitignore');
-  this.template('Gruntfile.js', 'Gruntfile.js');
+	//this.copy('template.js', this.name+'.js');
+	this.copy('_package.json', 'package.json');
+	this.copy('_bower.json', 'bower.json');
+	this.template('gitignore', '.gitignore');
+	this.template('Gruntfile.js', 'Gruntfile.js');
 };
 
 JsGenerator.prototype.projectfiles = function projectfiles() {

@@ -1,4 +1,4 @@
-;(function($,global){
+;(function($){
 	function <%= _.capitalize(name) %>(ele,opts){
 		var defaults = {
 
@@ -8,4 +8,10 @@
 	<%= _.capitalize(name) %>.prototype = {
 
 	};
-})(jQuery,window);
+
+	$.fn.<%= name %> = function(opts){
+		return this.each(function(){
+			$(this).data().<%= name %> = new <%= _.capitalize(name) %>($(this),opts);
+		});
+	}
+})(jQuery);

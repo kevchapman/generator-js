@@ -132,8 +132,8 @@ module.exports = function (grunt) {
         },*/
         uglify: {
             dist: {
-                src: '<%= yeoman.app %>/js/<%= yeoman.name %>.js',
-                dest: '<%= yeoman.dist %>/<%= yeoman.name %>.min.js'
+                src: '<%%= yeoman.app %>/js/<%%= yeoman.name %>.js',
+                dest: '<%%= yeoman.dist %>/<%%= yeoman.name %>.min.js'
             }
         },
         rev: {
@@ -238,12 +238,12 @@ module.exports = function (grunt) {
             dist: {
                 files: [
                     {
-                        src: '<%= yeoman.app %>/js/<%= yeoman.name %>.js',
-                        dest: '<%= yeoman.dist %>/<%= yeoman.name %>.js'
+                        src: '<%%= yeoman.app %>/js/<%%= yeoman.name %>.js',
+                        dest: '<%%= yeoman.dist %>/<%%= yeoman.name %>.js'
                     },
                     {
-                        src: '<%= yeoman.app %>/styles/<%= yeoman.name %>.css',
-                        dest: '<%= yeoman.dist %>/<%= yeoman.name %>.css'
+                        src: '<%%= yeoman.app %>/styles/<%%= yeoman.name %>.css',
+                        dest: '<%%= yeoman.dist %>/<%%= yeoman.name %>.css'
                     }
                 ]
             }

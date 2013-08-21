@@ -62,7 +62,7 @@ JsGenerator.prototype.app = function app() {
 	this.template('index.html','demo/index.html');
 	this.template('template.js','demo/js/'+this.name.toLowerCase()+'.js');
 	this.template('styles.scss','demo/styles/'+ this.name.toLowerCase()+'.scss');
-	this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.scss');
+	this.template('styles.scss','demo/styles/main.scss');
 	this.template('styles.scss','demo/styles/'+this.name.toLowerCase()+'.css');
 	this.template('styles.scss','demo/styles/main.css');
 

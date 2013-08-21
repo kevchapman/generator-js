@@ -13,5 +13,5 @@
 		return this.each(function(){
 			$(this).data().<%= name %> = new <%= _.capitalize(name) %>($(this),opts);
 		});
-	}
+	};
 })(jQuery);

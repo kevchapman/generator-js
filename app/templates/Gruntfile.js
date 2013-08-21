@@ -115,12 +115,13 @@ module.exports = function (grunt) {
                 importPath: '<%%= yeoman.app %>/bower_components',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
-                relativeAssets: false
+                relativeAssets: false,
+                outputStyle: 'compressed'
             },
             dist: {},
             server: {
                 options: {
-                    debugInfo: true
+                    debugInfo: false
                 }
             }
         },
@@ -128,32 +129,13 @@ module.exports = function (grunt) {
         // but still available if needed
         /*concat: {
             dist: {}
-        },*/<% if (includeRequireJS) { %>
-        requirejs: {
+        },*/
+        uglify: {
             dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-                options: {
-                    // `name` and `out` is set by grunt-usemin
-                    baseUrl: yeomanConfig.app + '/js',
-                    optimize: 'none',
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
-                    preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
-                }
+                src: '<%= yeoman.app %>/js/<%= yeoman.name %>.js',
+                dest: '<%= yeoman.dist %>/<%= yeoman.name %>.min.js'
             }
-        },<% } else { %>
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/<% } %>
+        },
         rev: {
             dist: {
                 files: {
@@ -253,9 +235,17 @@ module.exports = function (grunt) {
                     ]
                 }]
             },
-            dist:{
-                src:'<%%= yeoman.app %>/js/<%%= yeoman.name %>.js',
-                dest: '<%%= yeoman.dist %>/<%%= yeoman.name %>.js'
+            dist: {
+                files: [
+                    {
+                        src: '<%= yeoman.app %>/js/<%= yeoman.name %>.js',
+                        dest: '<%= yeoman.dist %>/<%= yeoman.name %>.js'
+                    },
+                    {
+                        src: '<%= yeoman.app %>/styles/<%= yeoman.name %>.css',
+                        dest: '<%= yeoman.dist %>/<%= yeoman.name %>.css'
+                    }
+                ]
             }
         },
         concurrent: {

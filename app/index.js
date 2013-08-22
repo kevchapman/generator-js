@@ -70,7 +70,8 @@ JsGenerator.prototype.app = function app() {
 	this.copy('_package.json', 'package.json');
 	this.copy('_bower.json', 'bower.json');
 	this.template('gitignore', '.gitignore');
-	this.template('Gruntfile.js', 'Gruntfile.js');
+  this.template('Gruntfile.js', 'Gruntfile.js');
+	this.template('README.md', 'README.md');
 };
 
 JsGenerator.prototype.projectfiles = function projectfiles() {
